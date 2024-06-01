@@ -12,7 +12,7 @@ public class DBCon {
 			System.out.println("数据库连接成功");
 			return conn;
 		}catch (ClassNotFoundException e) {
-			System.out.println("驱动程序找不到,数据库连接失败");
+			System.out.println("找不到驱动程序,数据库连接失败");
 			return null;
 		}catch (SQLException e) {
 			System.out.println("数据库连接失败");
