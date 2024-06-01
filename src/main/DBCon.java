@@ -8,7 +8,7 @@ public class DBCon {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			String url = "jdbc:mysql://localhost:3306/db_ems?serverTimezone=UTC";
-			Connection conn = DriverManager.getConnection(url,"root","你的数据库密码"); 
+			Connection conn = DriverManager.getConnection(url,"root","zxcvbnmasd"); 
 			System.out.println("数据库连接成功");
 			return conn;
 		}catch (ClassNotFoundException e) {
