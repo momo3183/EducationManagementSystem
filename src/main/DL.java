@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JComboBox;
 import javax.swing.border.EmptyBorder;
 
 import javax.swing.GroupLayout;
@@ -18,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class DL extends JFrame {
 
@@ -26,6 +28,7 @@ public class DL extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JPasswordField passwordField;
+	private JComboBox<String> userTypeComboBox;
 	
 	private int row = 0;
 
@@ -62,16 +65,31 @@ public class DL extends JFrame {
 		
 		passwordField = new JPasswordField();
 		
-		JLabel lblNewLabel = new JLabel("\u7528\u6237\u540D\uFF1A");
+		userTypeComboBox = new JComboBox<>();
+        userTypeComboBox.addItem("学生");
+        userTypeComboBox.addItem("教师");
+		
+		JLabel lblNewLabel = new JLabel("学号/工号：");
+		lblNewLabel.setFont(new Font("宋体", Font.PLAIN, 15));
 		
 		JLabel lblNewLabel_1 = new JLabel("\u5BC6\u7801\uFF1A");
+		lblNewLabel_1.setFont(new Font("宋体", Font.PLAIN, 15));
 		
-		data = DBCon.queryData2("Select * from users");
+		//data = DBCon.queryData2("Select * from users");
 		
 		JButton btnNewButton = new JButton("\u767B\u9646");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean exists = false;//标记
+				int userTypeIndex = userTypeComboBox.getSelectedIndex();
+				
+				if (userTypeIndex == 0) { // 如果选择的是学生
+		            data = DBCon.queryData2("SELECT * FROM users"); // 查询学生表
+		        } else if (userTypeIndex == 1) { // 如果选择的是教师
+		            data = DBCon.queryData2("SELECT * FROM tusers"); // 查询教师表
+		        }
+				
+				
 				for(int i=0;i<data.size()-1;i++) {
 					String[] a = getIDData(row+i);
 					//一、账号密码不为空
@@ -118,40 +136,40 @@ public class DL extends JFrame {
 			}
 		});
 		
-		JLabel label = new JLabel("教务系统");
+		JLabel label = new JLabel("教务管理系统");
+		label.setFont(new Font("宋体", Font.PLAIN, 20));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(162)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblNewLabel_1, GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-							.addGap(31))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblNewLabel)
-							.addPreferredGap(ComponentPlacement.RELATED)))
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(label, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-							.addComponent(btnNewButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(passwordField, Alignment.LEADING)
-							.addComponent(textField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)))
-					.addContainerGap(234, Short.MAX_VALUE))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(lblNewLabel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(label, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 252, GroupLayout.PREFERRED_SIZE)
+						.addComponent(userTypeComboBox, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 252, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnNewButton, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 252, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textField, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 252, GroupLayout.PREFERRED_SIZE)
+						.addComponent(passwordField, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 252, GroupLayout.PREFERRED_SIZE))
+					.addGap(252))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(100)
-					.addComponent(label, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
-					.addGap(93)
+					.addGap(114)
+					.addComponent(label, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
+					.addGap(31)
+					.addComponent(userTypeComboBox, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+					.addGap(39)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(textField, GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
+						.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textField, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
 					.addGap(33)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-						.addComponent(lblNewLabel_1, GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE, false)
+						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
 					.addGap(28)
 					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
 					.addGap(66))
