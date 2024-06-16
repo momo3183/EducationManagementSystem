@@ -2,6 +2,7 @@ package main;
 
 import admin.AdminMain;
 import student.Zym;
+import teacher.teacher;
 
 import java.awt.BorderLayout;
 
@@ -130,14 +131,17 @@ public class DL extends JFrame {
 								username = a[0];
 								
 								
-							}/*else if(userTypeIndex == 1) {// 如果选择的是教师
+							}else if(userTypeIndex == 1) {// 如果选择的是教师
+								username = a[0];
+								System.out.println(username);
+							
 								teacher t = new teacher();
 								t.setSize(800,600);
 								t.setVisible(true);
 								JFrame jframe = (JFrame)SwingUtilities.getWindowAncestor(btnNewButton);
 								jframe.dispose();
 								
-							}*/else if(userTypeIndex == 2) {// 如果选择的是管理员
+							}else if(userTypeIndex == 2) {// 如果选择的是管理员
 								AdminMain adminMain = new AdminMain();
 		                        adminMain.setVisible(true);
 		                        dispose();

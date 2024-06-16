@@ -68,7 +68,7 @@ public class DBCon {
 	public static Connection JDBCon() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			String url = "jdbc:mysql://localhost:3306/dbtest?serverTimezone=UTC";
+			String url = "jdbc:mysql://localhost:3306/db_ems?serverTimezone=UTC";
 			Connection conn = DriverManager.getConnection(url,"root","zxcvbnmasd"); 
 			System.out.println("数据库连接成功");
 			return conn;
@@ -202,6 +202,38 @@ public class DBCon {
 		
 	}
 	
+	
+	//查询数据方法2（二维的Vector）
+			public static Vector queryData22(String sql) {
+				Connection conn = JDBCon();
+				try {
+					//创建会话对象
+					Statement stmt = conn.createStatement();
+					//执行查询的sql语句，返回结果集
+					ResultSet rs = stmt.executeQuery(sql);
+					
+					Vector data = new Vector();
+					while(rs.next()) {//查询是否还有下一条记录
+						Vector line = new Vector();
+						line.add(rs.getObject(1).toString());//表头第一项
+						line.add(rs.getObject(2).toString());//表头第二项
+						data.add(line);
+					}
+					rs.close();
+					stmt.close();
+					conn.close();
+					return data;
+					
+				}catch(SQLException e) {
+					System.out.println("查询数据失败");
+					e.printStackTrace();
+					return null;
+				}
+				
+			}
+	
+	
+	
 	/*//查询数据方法2（二维的Vector）zzw原始代码
 	public static Vector queryData2(String sql) {
 		Connection conn = JDBCon();
@@ -285,6 +317,181 @@ public class DBCon {
     
   //hzz修改表格信息sql方法！！！
     public static int executeUpdate1(String sql) {
+        Connection conn = JDBCon();
+        try {
+            // 创建会话对象
+            Statement stmt = conn.createStatement();
+            // 执行更新的sql语句，返回影响的行数
+            int rowsAffected = stmt.executeUpdate(sql);
+            stmt.close();
+            conn.close();
+            return rowsAffected;
+        } catch (SQLException e) {
+            System.out.println("执行更新操作失败");
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    
+//	老师个人信息qh
+	public static Vector queryData0(String sql) {
+	Connection conn = JDBCon();
+	try {
+		//创建会话对象
+		Statement stmt = conn.createStatement();
+		//执行查询的sql语句，返回结果集
+		ResultSet rs = stmt.executeQuery(sql);
+		
+		Vector data = new Vector();
+		while(rs.next()) {//查询是否还有下一条记录
+			Vector line = new Vector();
+			line.add(rs.getObject(1).toString());//表头第一项
+			line.add(rs.getObject(2).toString());//表头第二项
+			line.add(rs.getObject(3).toString());//表头第二项
+			line.add(rs.getObject(4).toString());//表头第二项
+			line.add(rs.getObject(5).toString());//表头第二项
+			line.add(rs.getObject(6).toString());//表头第二项
+			
+			data.add(line);
+		}
+		rs.close();
+		stmt.close();
+		conn.close();
+		return data;
+		
+	}catch(SQLException e) {
+		System.out.println("查询数据失败");
+		e.printStackTrace();
+		return null;
+	}
+	
+}
+	
+	//修改密码qh
+	public static Vector queryData3(String sql) {
+		Connection conn = JDBCon();
+		try {
+			//创建会话对象
+			Statement stmt = conn.createStatement();
+			//执行查询的sql语句，返回结果集
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			Vector data = new Vector();
+			while(rs.next()) {//查询是否还有下一条记录
+				Vector line = new Vector();
+				line.add(rs.getObject(1).toString());//表头第一项
+				line.add(rs.getObject(2).toString());//表头第二项
+//				line.add(rs.getObject(3).toString());//表头第二项
+//				line.add(rs.getObject(4).toString());//表头第二项
+				
+				
+				data.add(line);
+			}
+			rs.close();
+			stmt.close();
+			conn.close();
+			return data;
+			
+		}catch(SQLException e) {
+			System.out.println("查询数据失败");
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+    
+    
+    
+    
+    
+    
+        // 查看学生信息的方法（教师）qh
+ 		public static Vector queryData_t_course(String sql, String Id) {
+ 		    Connection conn = JDBCon();
+ 		    try {
+ 		        // 创建会话对象
+ 		        PreparedStatement pstmt = conn.prepareStatement(sql);
+ 		        // 设置参数
+ 		        pstmt.setString(1, Id);
+ 		        // 执行查询的sql语句，返回结果集
+ 		        ResultSet rs = pstmt.executeQuery();
+ 		        
+ 		        Vector data = new Vector();
+ 		        int count = 0; // 用于记录记录数
+ 		        while (rs.next()) { // 查询是否还有下一条记录
+ 		            Vector line = new Vector();
+ 		            line.add(rs.getObject(1).toString()); // 表头第一项
+ 		            line.add(rs.getObject(2).toString()); // 表头第二项
+ 		            line.add(rs.getObject(3).toString()); // 表头第三项
+ 		            line.add(rs.getObject(4).toString()); // 表头第四项
+ 		            line.add(rs.getObject(5).toString()); // 表头第五项
+ 		            line.add(rs.getObject(6).toString()); // 表头第六项
+// 		            line.add(rs.getObject(7).toString()); // 表头第七项
+ 		            data.add(line);
+ 		            count++;
+ 		        }
+// 		        System.out.println("Number of records returned: " + count);
+ 		        rs.close();
+ 		        pstmt.close();
+ 		        conn.close();
+ 		        return data;
+ 		        
+ 		    } catch (SQLException e) {
+ 		        System.out.println("查询数据失败");
+ 		        e.printStackTrace();
+ 		        return null;
+ 		    }
+ 		}
+    
+    
+    
+    
+    
+        // 查询老师成绩管理的方法qh
+ 		public static Vector queryData_score(String sql, String Id) {
+ 		    Connection conn = JDBCon();
+ 		    try {
+ 		        // 创建会话对象
+ 		        PreparedStatement pstmt = conn.prepareStatement(sql);
+ 		        // 设置参数
+ 		        pstmt.setString(1, Id);
+ 		        // 执行查询的sql语句，返回结果集
+ 		        ResultSet rs = pstmt.executeQuery();
+ 		        
+ 		        Vector data = new Vector();
+ 		        int count = 0; // 用于记录记录数
+ 		        while (rs.next()) { // 查询是否还有下一条记录
+ 		            Vector line = new Vector();
+ 		            line.add(rs.getObject(1).toString()); // 表头第一项
+ 		            line.add(rs.getObject(2).toString()); // 表头第二项
+ 		            line.add(rs.getObject(3).toString()); // 表头第三项
+ 		            line.add(rs.getObject(4).toString()); // 表头第四项
+ 		            line.add(rs.getObject(5).toString()); // 表头第五项
+// 		            line.add(rs.getObject(6).toString()); // 表头第六项
+// 		            line.add(rs.getObject(7).toString()); // 表头第七项
+ 		            data.add(line);
+ 		            count++;
+ 		        }
+// 		        System.out.println("Number of records returned: " + count);
+ 		        rs.close();
+ 		        pstmt.close();
+ 		        conn.close();
+ 		        return data;
+ 		        
+ 		    } catch (SQLException e) {
+ 		        System.out.println("查询数据失败");
+ 		        e.printStackTrace();
+ 		        return null;
+ 		    }
+ 		}
+
+    
+    
+    
+    
+  //修改教师密码表格信息sql方法qh(class名冲突)
+    public static int executeUpdate2(String sql) {
         Connection conn = JDBCon();
         try {
             // 创建会话对象
