@@ -3,6 +3,7 @@ package admin;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import main.DL;
 
 public class AdminMain extends JFrame {
     private JPanel contentPane;
@@ -19,18 +20,20 @@ public class AdminMain extends JFrame {
 
         // Create navigation panel
         JPanel navigationPanel = new JPanel();
-        navigationPanel.setLayout(new GridLayout(5, 1));
+        navigationPanel.setLayout(new GridLayout(6, 1)); 
         JButton userManagementButton = new JButton("用户管理");
         JButton studentManagementButton = new JButton("学生管理");
         JButton courseManagementButton = new JButton("课程管理");
         JButton gradeManagementButton = new JButton("成绩管理");
         JButton resetPasswordButton = new JButton("重置密码");
+        JButton logoutButton = new JButton("注销"); 
 
         navigationPanel.add(userManagementButton);
         navigationPanel.add(studentManagementButton);
         navigationPanel.add(courseManagementButton);
         navigationPanel.add(gradeManagementButton);
         navigationPanel.add(resetPasswordButton);
+        navigationPanel.add(logoutButton); 
 
         // Add navigationPanel to the west side of contentPane
         contentPane.add(navigationPanel, BorderLayout.WEST);
@@ -59,6 +62,19 @@ public class AdminMain extends JFrame {
         courseManagementButton.addActionListener(e -> cardLayout.show(cardsPanel, "Course Management"));
         gradeManagementButton.addActionListener(e -> cardLayout.show(cardsPanel, "Grade Management"));
         resetPasswordButton.addActionListener(e -> cardLayout.show(cardsPanel, "Reset Password"));
+
+        // Add action listener to logout button
+        logoutButton.addActionListener(e -> {
+            dispose(); // Close the current admin window
+            EventQueue.invokeLater(() -> {
+                try {
+                    DL loginFrame = new DL(); // Create and show the login window
+                    loginFrame.setVisible(true);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            });
+        });
 
         // Default view
         cardLayout.show(cardsPanel, "User Management");

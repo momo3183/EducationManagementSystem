@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import main.DL;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -90,6 +93,17 @@ public class teacher extends JFrame {
 				jframe.dispose();
 			}
 		});
+		
+		JButton button = new JButton("\u6CE8\u9500");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DL i = new  DL();
+				i.setSize(800,600);
+				i.setVisible(true);
+				JFrame jframe = (JFrame)SwingUtilities.getWindowAncestor(button);
+				jframe.dispose();
+			}
+		});
 
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -102,19 +116,25 @@ public class teacher extends JFrame {
 					.addGap(18)
 					.addComponent(btnNewButton_2, GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
 					.addGap(18)
-					.addComponent(btnNewButton_3, GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+					.addComponent(btnNewButton_3, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
 					.addGap(67))
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addContainerGap(687, Short.MAX_VALUE)
+					.addComponent(button, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(227)
+					.addContainerGap()
+					.addComponent(button)
+					.addGap(187)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnNewButton_2, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnNewButton_3, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(260, Short.MAX_VALUE))
+					.addContainerGap(252, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}

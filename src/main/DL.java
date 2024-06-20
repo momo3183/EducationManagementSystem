@@ -120,7 +120,7 @@ public class DL extends JFrame {
 						
 						if(textField.getText().toString().equals(a[0])&&(new String(passwordField.getPassword())).equals(a[1])) {
 							exists = true;
-							JOptionPane.showMessageDialog(null, "登陆成功","系统提示",JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null, "登录成功","系统提示",JOptionPane.INFORMATION_MESSAGE);
 							
 							if(userTypeIndex == 0) {// 如果选择的是学生
 								Zym z = new Zym();
@@ -150,7 +150,7 @@ public class DL extends JFrame {
 						}//2、密码错误
 						else if(textField.getText().toString().equals(a[0])&&!(new String(passwordField.getPassword())).equals(a[1])) {
 							exists = true;
-							JOptionPane.showMessageDialog(null, "passwork is false","系统提示",JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null, "密码错误","系统提示",JOptionPane.INFORMATION_MESSAGE);
 							break;
 						}//3、账号存在
 						if((textField.getText().toString().equals(a[0]))){
