@@ -109,7 +109,11 @@ public class EditStudentDialog extends JDialog {
                 student.setClassName(classField.getText());
                 student.setPhone(phoneField.getText());
                 student.setEmail(emailField.getText());
-                DBCon.update(student);
+                
+             // 在新线程中更新数据库
+                new Thread(() -> {
+                    DBCon.update(student);
+                }).start();
                 dispose();
             }
         });

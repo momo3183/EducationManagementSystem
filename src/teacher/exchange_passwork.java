@@ -81,20 +81,21 @@ public class exchange_passwork extends JFrame {
 			for(int i=0;i<data.size();i++) {
 				String[] a = getIDData(row+i);
 				if(a[0].equals(textField.getText().toString())) {
-					a[1] = textField_1.getText().toString();
-					
-					//此处修改密码
-					int result = DBCon.executeUpdate2("UPDATE tusers SET 密码='"+a[1]+"' WHERE 工号='"+a[0]+"'");
-		            if(result > 0) {
-		                JOptionPane.showMessageDialog(null, "修改成功","系统提示",JOptionPane.INFORMATION_MESSAGE);
-		            } else {
-		                JOptionPane.showMessageDialog(null, "修改失败","系统提示",JOptionPane.ERROR_MESSAGE);
-		            }
-		            DL z = new DL();
-					z.setSize(800,600);
-					z.setVisible(true);
-					JFrame jframe = (JFrame)SwingUtilities.getWindowAncestor(btnNewButton);
-					jframe.dispose();
+					if(!textField_1.getText().trim().isEmpty()) {//判断不为空
+						//此处修改密码
+						int result = DBCon.executeUpdate2("UPDATE tusers SET 密码='"+a[1]+"' WHERE 工号='"+a[0]+"'");
+			            if(result > 0) {
+			                JOptionPane.showMessageDialog(null, "修改成功","系统提示",JOptionPane.INFORMATION_MESSAGE);
+			                teacher t = new teacher();
+							t.setSize(800,600);
+							t.setVisible(true);
+							dispose();
+			            } else {
+			                JOptionPane.showMessageDialog(null, "修改失败","系统提示",JOptionPane.ERROR_MESSAGE);
+			            }
+					}else {
+						JOptionPane.showMessageDialog(null, "密码不能为空","系统提示",JOptionPane.ERROR_MESSAGE);
+					}
 					
 				}
 			}

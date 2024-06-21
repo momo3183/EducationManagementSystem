@@ -174,12 +174,7 @@ public class information extends JFrame {
 			}
 		}
 		
-//     	showTextData(row);
-//		tbl.setBounds(5, 200, 800, 150);
-//		th.setBounds(5, 100, 800, 150);
-//		this.getContentPane().add(tbl);
-//		this.getContentPane().add(th);
-//		表头
+
      	title=new Vector();
 		title.add("工号");
 		title.add("姓名");
@@ -259,9 +254,7 @@ public class information extends JFrame {
 				JOptionPane.showMessageDialog(null, "不能修改别人的信息哦","系统提示", JOptionPane.ERROR_MESSAGE);
 			}
 				
-//				radWoman.setEnabled(true);
-//				radMan.setEnabled(true);
-//				radnull.setEnabled(true);
+
 			}
 		});
 		
@@ -288,11 +281,7 @@ public class information extends JFrame {
 			                JOptionPane.showMessageDialog(null, "修改失败","系统提示",JOptionPane.ERROR_MESSAGE);
 			            }
 			            
-//			            DL z = new DL();
-//						z.setSize(800,600);
-//						z.setVisible(true);
-//						JFrame jframe = (JFrame)SwingUtilities.getWindowAncestor(btnsave);
-//						jframe.dispose();
+
 						
 					}
 				}
@@ -304,17 +293,14 @@ public class information extends JFrame {
 		JButton btncancle = new JButton("\u53D6\u6D88");
 		btncancle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				txtteaName.setEditable(false);
-//				txtteaID.setEditable(false);
+
 				txtteaSub.setEditable(false);
 				txtteaTel.setEditable(false);
 				txtteaEma.setEditable(false);
 				data = DBCon.queryData0("SELECT * FROM teachers");
 				
 				showTableData();
-//				radWoman.setEnabled(false);
-//				radMan.setEnabled(false);
-//				radnull.setEnabled(false);
+
 				
 				
 			}
@@ -324,7 +310,6 @@ public class information extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				teacher i = new teacher();
-//				i.setSize(800,600);
 				i.setVisible(true);
 				JFrame jframe = (JFrame)SwingUtilities.getWindowAncestor(btnNewButton);
 				jframe.dispose();

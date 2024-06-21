@@ -16,7 +16,6 @@ public class UserManagement extends JPanel {
     public UserManagement() {
         setLayout(new BorderLayout());
 
-        // Search Panel
         JPanel searchPanel = new JPanel();
         searchPanel.setLayout(new FlowLayout());
         searchField = new JTextField(20);
@@ -26,7 +25,6 @@ public class UserManagement extends JPanel {
         searchPanel.add(searchButton);
         add(searchPanel, BorderLayout.NORTH);
 
-        // User Table
         Vector<String> columnNames = new Vector<>();
         columnNames.add("用户名");
         columnNames.add("密码");
@@ -36,7 +34,6 @@ public class UserManagement extends JPanel {
         userTable = new JTable(data, columnNames);
         add(new JScrollPane(userTable), BorderLayout.CENTER);
 
-        // Control Panel
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new FlowLayout());
         JButton addButton = new JButton("添加");
@@ -47,9 +44,7 @@ public class UserManagement extends JPanel {
         controlPanel.add(deleteButton);
         add(controlPanel, BorderLayout.SOUTH);
 
-        // Add Button Action
         addButton.addActionListener(e -> {
-            // Add User Code
         	AddUserDialog addUserDialog = new AddUserDialog();
             addUserDialog.setVisible(true);
             refreshUserTable();
@@ -57,7 +52,6 @@ public class UserManagement extends JPanel {
         
         
         editButton.addActionListener(e -> {
-            // Edit User Code
             int selectedRow = userTable.getSelectedRow();
             if (selectedRow != -1) {
                 String userId = (String) userTable.getValueAt(selectedRow, 0);
@@ -77,9 +71,7 @@ public class UserManagement extends JPanel {
             }
         });
 
-        // Delete Button Action
         deleteButton.addActionListener(e -> {
-            // Delete User Code
         	int selectedRow = userTable.getSelectedRow();
             if (selectedRow != -1) {
                 String userId = (String) userTable.getValueAt(selectedRow, 0);
@@ -98,7 +90,6 @@ public class UserManagement extends JPanel {
             }
         });
 
-        // Search Button Action
         searchButton.addActionListener(e -> {
             String searchText = searchField.getText();
             Vector<Vector<String>> searchData = 

@@ -204,7 +204,7 @@ public class DBCon {
 	
 	
 	//查询数据方法2（二维的Vector）
-			public static Vector queryData22(String sql) {
+			public static Vector<Vector<String>> queryData22(String sql) {
 				Connection conn = JDBCon();
 				try {
 					//创建会话对象
@@ -212,9 +212,9 @@ public class DBCon {
 					//执行查询的sql语句，返回结果集
 					ResultSet rs = stmt.executeQuery(sql);
 					
-					Vector data = new Vector();
+					Vector<Vector<String>> data = new Vector<Vector<String>>();
 					while(rs.next()) {//查询是否还有下一条记录
-						Vector line = new Vector();
+						Vector<String> line = new Vector<String>();
 						line.add(rs.getObject(1).toString());//表头第一项
 						line.add(rs.getObject(2).toString());//表头第二项
 						data.add(line);

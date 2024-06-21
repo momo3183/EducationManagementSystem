@@ -51,13 +51,7 @@ public class CourseEvaluation extends JFrame {
         });
     }
 
-    /*private String[] getCourses() {
-        // 从数据库中获取课程列表
-        return new String[]{"课程1", "课程2", "课程3"};  // 根据实际情况设置课程列表
-    }*/
-    
-    
-    
+      
     private String[] getCourses(String studentId) {
         List<String> courses = new ArrayList<>();
         try {

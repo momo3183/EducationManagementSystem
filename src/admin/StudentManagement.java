@@ -15,7 +15,7 @@ public class StudentManagement extends JPanel {
     public StudentManagement() {
         setLayout(new BorderLayout());
 
-        // Search Panel
+        // 搜索面板
         JPanel searchPanel = new JPanel();
         searchPanel.setLayout(new FlowLayout());
         searchField = new JTextField(20);
@@ -25,7 +25,7 @@ public class StudentManagement extends JPanel {
         searchPanel.add(searchButton);
         add(searchPanel, BorderLayout.NORTH);
 
-        // Student Table
+        // 学生
         Vector<String> columnNames = new Vector<>();
         columnNames.add("学号");
         columnNames.add("姓名");
@@ -42,7 +42,6 @@ public class StudentManagement extends JPanel {
         studentTable = new JTable(data, columnNames);
         add(new JScrollPane(studentTable), BorderLayout.CENTER);
 
-        // Control Panel
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new FlowLayout());
         JButton addButton = new JButton("添加");
@@ -53,14 +52,12 @@ public class StudentManagement extends JPanel {
         controlPanel.add(deleteButton);
         add(controlPanel, BorderLayout.SOUTH);
 
-        // Add Button Action
         addButton.addActionListener(e -> {
             AddStudentDialog addStudentDialog = new AddStudentDialog();
             addStudentDialog.setVisible(true);
             refreshStudentTable();
         });
 
-        // Edit Button Action
         editButton.addActionListener(e -> {
             int selectedRow = studentTable.getSelectedRow();
             if (selectedRow != -1) {
@@ -73,7 +70,6 @@ public class StudentManagement extends JPanel {
             }
         });
 
-        // Delete Button Action
         deleteButton.addActionListener(e -> {
             int selectedRow = studentTable.getSelectedRow();
             if (selectedRow != -1) {
@@ -89,7 +85,6 @@ public class StudentManagement extends JPanel {
             }
         });
 
-        // Search Button Action
         searchButton.addActionListener(e -> {
             String searchText = searchField.getText();
             Vector<Vector<String>> searchData = DBCon.queryData2("SELECT * FROM students WHERE 学号 LIKE '%" + searchText + "%' OR 姓名 LIKE '%" + searchText + "%' OR 学院 LIKE '%" + searchText + "%' OR 班级 LIKE '%" + searchText + "%'");

@@ -86,7 +86,6 @@ public class CourseManagement extends JPanel {
     public CourseManagement() {
         setLayout(new BorderLayout());
 
-        // Search Panel
         JPanel searchPanel = new JPanel();
         searchPanel.setLayout(new FlowLayout());
         searchField = new JTextField(20);
@@ -96,7 +95,6 @@ public class CourseManagement extends JPanel {
         searchPanel.add(searchButton);
         add(searchPanel, BorderLayout.NORTH);
 
-        // Course Table
         Vector<String> columnNames = new Vector<>();
         columnNames.add("课程号");
         columnNames.add("课程名");
@@ -108,7 +106,6 @@ public class CourseManagement extends JPanel {
         courseTable = new JTable(data, columnNames);
         add(new JScrollPane(courseTable), BorderLayout.CENTER);
 
-        // Control Panel
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new FlowLayout());
         JButton addButton = new JButton("添加");
@@ -119,17 +116,13 @@ public class CourseManagement extends JPanel {
         controlPanel.add(deleteButton);
         add(controlPanel, BorderLayout.SOUTH);
 
-        // Add Button Action
         addButton.addActionListener(e -> {
-            // Add Course Code
             AddCourseDialog addCourseDialog = new AddCourseDialog();
             addCourseDialog.setVisible(true);
             refreshCourseTable();
         });
 
-        // Edit Button Action
         editButton.addActionListener(e -> {
-            // Edit Course Code
             int selectedRow = courseTable.getSelectedRow();
             if (selectedRow != -1) {
                 String courseId = (String) courseTable.getValueAt(selectedRow, 0);
@@ -142,9 +135,7 @@ public class CourseManagement extends JPanel {
             }
         });
 
-        // Delete Button Action
         deleteButton.addActionListener(e -> {
-            // Delete Course Code
             int selectedRow = courseTable.getSelectedRow();
             if (selectedRow != -1) {
                 String courseId = (String) courseTable.getValueAt(selectedRow, 0);
@@ -160,7 +151,6 @@ public class CourseManagement extends JPanel {
             }
         });
 
-        // Search Button Action
         searchButton.addActionListener(e -> {
             String searchText = searchField.getText();
             Vector<Vector<String>> searchData = DBCon.queryData2(
@@ -181,7 +171,7 @@ public class CourseManagement extends JPanel {
         courseTable.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
     }
 
-    class AddCourseDialog extends JDialog {
+    class AddCourseDialog extends JDialog {//嵌套类
         private JTextField courseIdField;
         private JTextField courseNameField;
         private JTextField hoursField;
@@ -240,7 +230,7 @@ public class CourseManagement extends JPanel {
         }
     }
 
-    class EditCourseDialog extends JDialog {
+    class EditCourseDialog extends JDialog {//嵌套类
         private JTextField courseIdField;
         private JTextField courseNameField;
         private JTextField hoursField;

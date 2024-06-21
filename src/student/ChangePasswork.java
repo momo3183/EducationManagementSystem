@@ -50,6 +50,7 @@ public class ChangePasswork extends JFrame {
 	 * Create the frame.
 	 */
 	public ChangePasswork(JFrame previousFrame) {
+		setTitle("修改密码");
 		this.previousFrame = previousFrame;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -79,18 +80,23 @@ public class ChangePasswork extends JFrame {
 				for(int i=0;i<data.size();i++) {
 					String[] a = getIDData(row+i);
 					if(a[0].equals(textField.getText().toString())) {
-						a[1] = textField_1.getText().toString();
-
-						//此处修改密码
-						int result = DBCon.executeUpdate1("UPDATE users SET 密码='"+a[1]+"' WHERE 学号='"+a[0]+"'");
-			            if(result > 0) {
-			                JOptionPane.showMessageDialog(null, "修改成功","系统提示",JOptionPane.INFORMATION_MESSAGE);
-			            } else {
-			                JOptionPane.showMessageDialog(null, "修改失败","系统提示",JOptionPane.ERROR_MESSAGE);
-			            }
+						if(!textField_1.getText().trim().isEmpty()) {//判断不为空
+							//此处修改密码
+							int result = DBCon.executeUpdate2("UPDATE users SET 密码='"+a[1]+"' WHERE 学号='"+a[0]+"'");
+				            if(result > 0) {
+				                JOptionPane.showMessageDialog(null, "修改成功","系统提示",JOptionPane.INFORMATION_MESSAGE);
+				                Zym t = new Zym();
+								t.setSize(800,600);
+								t.setVisible(true);
+								dispose();
+				            } else {
+				                JOptionPane.showMessageDialog(null, "修改失败","系统提示",JOptionPane.ERROR_MESSAGE);
+				            }
+				            previousFrame.setVisible(true);
+						}else {
+							JOptionPane.showMessageDialog(null, "密码不能为空","系统提示",JOptionPane.ERROR_MESSAGE);
+						}
 			            
-			            dispose();
-			            previousFrame.setVisible(true);
 
 					}
 				}

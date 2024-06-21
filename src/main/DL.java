@@ -88,9 +88,7 @@ public class DL extends JFrame {
 		JButton btnNewButton = new JButton("登录");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean exists = false;//标记
 				int userTypeIndex = userTypeComboBox.getSelectedIndex();
-				
 				
 				//zjh修改
 				if (userTypeIndex == 0) { // 如果选择的是学生
@@ -101,85 +99,55 @@ public class DL extends JFrame {
 		            data = DBCon.queryData2("SELECT * FROM ausers"); // 查询管理员表
 		        }
 				
+				if (textField.getText().isEmpty() || new String(passwordField.getPassword()).length() == 0) {
+				    JOptionPane.showMessageDialog(null, "账号或密码为空", "系统提示", JOptionPane.INFORMATION_MESSAGE);
+				    return; // 结束方法执行
+				}
+				
+				boolean exists = false;//判断用户名是否存在
 				
 				for(int i=0;i<data.size();i++) {
 					String[] a = getIDData(row+i);
-					//一、账号密码不为空
-					if(textField.getText().length()>0&&new String(passwordField.getPassword()).length()>0) {
-						//1、账号密码正确，进入界面
-						/*//zjh修改
-						if(textField.getText().toString().equals(a[0])&&(new String(passwordField.getPassword())).equals(a[1])) {
-							exists = true;
-							JOptionPane.showMessageDialog(null, "登陆成功","系统提示",JOptionPane.INFORMATION_MESSAGE);
-							if ("admin".equals(a[0])) {
-							    // 跳转到管理员界面
-								AdminMain adminMain = new AdminMain();
-		                        adminMain.setVisible(true);
-		                        dispose();
-							}*/
-						
-						if(textField.getText().toString().equals(a[0])&&(new String(passwordField.getPassword())).equals(a[1])) {
-							exists = true;
-							JOptionPane.showMessageDialog(null, "登录成功","系统提示",JOptionPane.INFORMATION_MESSAGE);
-							
-							if(userTypeIndex == 0) {// 如果选择的是学生
-								Zym z = new Zym();
-								z.setSize(800,600);
-								z.setVisible(true);
-								JFrame jframe = (JFrame)SwingUtilities.getWindowAncestor(btnNewButton);
-								jframe.dispose();
-								username = a[0];
-								
-								
-							}else if(userTypeIndex == 1) {// 如果选择的是教师
-								username = a[0];
-								System.out.println(username);
-							
-								teacher t = new teacher();
-								t.setSize(800,600);
-								t.setVisible(true);
-								JFrame jframe = (JFrame)SwingUtilities.getWindowAncestor(btnNewButton);
-								jframe.dispose();
-								
-							}else if(userTypeIndex == 2) {// 如果选择的是管理员
-								AdminMain adminMain = new AdminMain();
-		                        adminMain.setVisible(true);
-		                        dispose();
-							}
-							break;
-						}//2、密码错误
-						else if(textField.getText().toString().equals(a[0])&&!(new String(passwordField.getPassword())).equals(a[1])) {
-							exists = true;
-							JOptionPane.showMessageDialog(null, "密码错误","系统提示",JOptionPane.INFORMATION_MESSAGE);
-							break;
-						}//3、账号存在
-						if((textField.getText().toString().equals(a[0]))){
-							exists = true;
-							break;
+					// 遍历表，比较用户名是否存在
+					if(textField.getText().equals(a[0])) {
+						exists = true;
+						// 如果存在，比较密码是否正确
+					    if (new String(passwordField.getPassword()).equals(a[1])) {
+					        exists = true;
+					        
+					        // 根据用户类型打开不同的窗口
+					        switch (userTypeIndex) {
+					            case 0: // 学生
+									username = a[0];
+					                Zym z = new Zym();
+					                z.setSize(800, 600);
+					                z.setVisible(true);
+					                dispose();
+					                break;
+					            case 1: // 教师
+									username = a[0];
+					                teacher t = new teacher();
+					                t.setSize(800, 600);
+					                t.setVisible(true);
+					                dispose();
+					                break;
+					            case 2: // 管理员
+					                AdminMain adminMain = new AdminMain();
+					                adminMain.setVisible(true);
+					                dispose();
+					                break;
+					            default:
+					                break;
+					        }
+						}else{//密码不正确情况
+						   JOptionPane.showMessageDialog(null, "密码错误", "系统提示", JOptionPane.INFORMATION_MESSAGE);  
 						}
-					 }
-					//二、账号为空
-					else if(textField.getText().length()==0&&new String(passwordField.getPassword()).length()>0){
-						exists = true;
-						JOptionPane.showMessageDialog(null, "账号为空","系统提示",JOptionPane.INFORMATION_MESSAGE);
-						break;
-					}
-					//三、密码为空
-					else if(textField.getText().length()>0&&new String(passwordField.getPassword()).length()==0) {
-						exists = true;
-						JOptionPane.showMessageDialog(null, "密码为空","系统提示",JOptionPane.INFORMATION_MESSAGE);
-						break;
-					}
-					//四、账号密码为空
-					else if(textField.getText().length()==0&&new String(passwordField.getPassword()).length()==0){
-						exists = true;
-						JOptionPane.showMessageDialog(null, "账号密码为空","系统提示",JOptionPane.INFORMATION_MESSAGE);
-						break;
 					}
 				}
-				if (!exists) {//五、账号不存在
-					JOptionPane.showMessageDialog(null, "账号不存在","系统提示",JOptionPane.INFORMATION_MESSAGE);
-			    }
+				// 如果循环完成而exists仍为false，表明没有找到匹配的用户名和密码
+				if (!exists) {
+				    JOptionPane.showMessageDialog(null, "账号不存在", "系统提示", JOptionPane.INFORMATION_MESSAGE);
+				}
 			}
 		});
 		
